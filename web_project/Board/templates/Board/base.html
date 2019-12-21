@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <meta charset="UTF-8">
+    <title>성대한 과외 게시판</title>
+</head>
+<body>
+        <div class="page-header">       <!--상단 메뉴-->
+            <h2>
+            <table width="1200">
+                <td align="center"><a href="{% url 'br' pg=1%}">홈</a>
+                    {% if not talkable %}
+                        <td align="center"><a href={% url 'personal' %}>1:1대화</a></td>
+                    {% else %}
+                        <td align="center"><a href="{% url 'new_post' %}">글쓰기</a></td>
+                        <!--대화중엔 글쓰기 불가능-->
+                    {% endif %}
+                    <td align="center"><a href="{% url 'rep_post' %}">신고하기</a></td>
+                    <td align="center"><a href="{% url 'my_post' %}">내글관리</a></td>
+                    {% if user.handle.skku %}
+                        <td align="center"><a href="{% url 'profile' pk=user.pk %}">프로필</a></td>
+                    {% else %}
+                        <td align="center"><a href={% url 'eval' %}>평가하기</a></td>
+                    {% endif %}
+                    <td align="center"><a href="{% url 'logout' %}">로그아웃</a></td>
+                    <td align="center"><a href="{% url 'change_pw' %}">비밀번호 변경</a></td>
+                    <td align="center">{{ user.handle.name }} 님</td>
+                </tr>
+            </table>
+            </h2>
+        </div>
+        <div class="content container">     <!--게시판-->
+                {% block content %}
+                {% endblock %}
+        </div>
+</body>
+</html>

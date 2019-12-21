@@ -1,0 +1,11 @@
+{% extends 'Board/base.html' %}
+{% block content %}
+    <h1>
+        {{ targ.handle.name }}님의 프로필
+    </h1>
+    <form method="POST" class = 'post-form'>{% csrf_token %}
+    {{form.as_p}}
+    <button type = "submit", class="save btn btn-default">완료</button>
+    </form>
+
+{% endblock %}

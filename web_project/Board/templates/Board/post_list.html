@@ -1,0 +1,52 @@
+{% extends 'Board/base.html' %}
+{% block content %}
+    <h1>
+        과외 모집 게시판
+    </h1>
+    <hr>
+    <table width="1000">
+        <th>작성</th>
+        <th>내용</th>
+        <th>작성자</th>
+        <th>신청 상태</th>
+    {% if po %}
+        {% for post in po %}
+            <tr>
+            {% for pos in post %}
+                {% if not pos.author %}
+                    <td align="center">{{ pos }}</td>
+                {% else %}
+                <td>{{ pos.content }}</td>
+                <td align="center">
+                {% if pos.author.handle.skku %}
+                    <a href="{% url 'profile' pk=pos.author.pk %}">{{ pos.author.handle.name }}</a>
+                    {% else %}
+                    {{ pos.author.handle.name }}
+                    {% endif %}
+                    </td>
+                    <td align="center">
+                    {% if pos.author.handle.skku != user.handle.skku and pos.state == "대기" and talkable %}
+                    <a href="{% url '1to1' pk=pos.author.pk %}">{{ pos.state }}</a>
+                    {% else %}
+                    {{ pos.state }}
+                    {% endif %}
+                    </td>
+                {% endif %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+
+    {% else %}
+        <tr>
+            <td colspan="4" align="center"> 검색결과가 없습니다.</td>
+        </tr>
+    {% endif %}
+    </table>
+    <form method="GET" class = "search" name="keyword" id="keyword">{% csrf_token %}
+        <input type="text" name="keyword" id="keyword">
+        <button type="submit">검색</button>
+    </form>
+    {% for pa in allpage %}
+        <a href="{% url 'br' pg=pa %}">{{ pa }}</a>&nbsp;
+    {% endfor %}
+{% endblock %}

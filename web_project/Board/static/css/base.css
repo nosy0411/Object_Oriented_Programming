@@ -1,0 +1,12 @@
+.page-header {
+    /*29. div page-header에 대하여*/
+    background-color: #000000;
+    margin-top: 0;
+    padding: 5px 5px 5px 5px;
+    color:#FFFFFF;
+}
+
+.page-header a{
+    color:#FFFFFF;
+    text-decoration: none;
+}

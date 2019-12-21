@@ -1,0 +1,33 @@
+{% extends 'Board/base.html' %}
+{% block content %}
+    <h1>
+        내글
+    </h1>
+    <hr>
+    <table>
+        <th>작성</th>
+        <th>내용</th>
+        <th>신청 상태</th>
+    {% if po %}
+        {% for post in po %}
+            <tr>
+            {% for pos in post %}
+                {% if not pos.author %}
+                <td align="center">{{ pos }}</td>
+                {% else %}
+                <td>{{ pos.content }}</td>
+                <td align="center">{{ pos.state }}</td>
+                <td><a href="{% url 'edit_post' pk=pos.pk %}"><button type="button">수정</button></a></td>
+                <td><a href="{% url 'del' pk=pos.pk %}"><button type="button">삭제</button></a></td>
+                {% endif %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+
+    {% else %}
+        <tr>
+            <td colspan="3" align="center"> 검색결과가 없습니다.</td>
+        </tr>
+    {% endif %}
+    </table>
+{% endblock %}

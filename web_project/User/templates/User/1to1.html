@@ -1,0 +1,20 @@
+{% extends 'Board/base.html' %}
+{% block content %}
+    <h1>일대일 대화창</h1>
+    <hr>
+    {% for l in lines %}
+        {{ l.date }}
+        <br>
+        {{ l.content }}
+        <hr>
+    {% endfor %}
+    <form method="POST">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">작성</button>
+    </form>
+    <br>
+    {% if not cons %}
+    <a href={% url 'consent' %}><button>성사</button></a>
+    <a href={% url 'refuse' %}><button>결렬</button></a>
+    {% endif %}
+{% endblock %}

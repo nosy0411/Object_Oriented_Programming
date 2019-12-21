@@ -1,0 +1,40 @@
+{% extends 'Board/base.html' %}
+{% block content %}
+    <h3>
+        {{ targ.handle.profile.dep }}
+    </h3>
+    <h1>
+        {{ targ.handle.name }}님의 프로필
+    </h1>
+    <hr>
+    <table width="500">
+        <tr>
+            <th align="center">성별, 나이</th>
+            <th align="center">과외 횟수</th>
+            <th align="center">선호 과목</th>
+            <th align="center">선호 지역</th>
+        </tr>
+        <tr>
+            <td align="center">{% if prof.is_male %}남,{% else %}여,{% endif %}{{ prof.age }}</td>
+            <td align="center">{{ prof.exp }}</td>
+            <td align="center">{{ prof.subj }}</td>
+            <td align="center">{{ prof.region }}</td>
+        </tr>
+        <tr>
+            <td colspan="4" align="center">{{ prof.intro }}</td>
+        </tr>
+    </table>
+    <h2>평가({{ prof.score }})</h2>
+    <hr>
+    {% for f in eval %}
+        {{ f.score }}
+        |
+        {{ f.details }}
+        <br>
+    {% endfor %}
+    {% if targ == user %}
+        <a href={% url 'prof_mod' pk=user.pk %}>
+         <button>수정</button>
+        </a>
+    {% endif %}
+{% endblock %}
